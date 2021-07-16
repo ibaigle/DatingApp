@@ -13,9 +13,10 @@ namespace API.Controllers
     public class AccountController : BaseApiController
     {
         public readonly DataContext _context;
-        public readonly ITokenService _token;
+        public readonly ITokenService _tokenService;
         public AccountController(DataContext context, ITokenService tokenService){
             _context=context;
+            _tokenService=tokenService;
         }
 
         [HttpPost("register")]
@@ -39,7 +40,7 @@ namespace API.Controllers
 
             return new UserDto{
                 Username = user.Username,
-                Token = _token.CreateToken(user)
+                Token = _tokenService.CreateToken(user)
             };
         }
         [HttpPost("login")]
@@ -56,7 +57,7 @@ namespace API.Controllers
             }
             return new UserDto{
                 Username = user.Username,
-                Token = _token.CreateToken(user)
+                Token = _tokenService.CreateToken(user)
             };
         }
         private async Task<bool> UserExists(string username)
