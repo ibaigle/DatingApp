@@ -8,8 +8,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace API.Controllers
 {
-    [ApiController]
-    [Route("api/[controller]")]
+    //Deleted both [ApiController] [Route]
     public class UsersController : ControllerBase
     {
         public readonly DataContext _context;
