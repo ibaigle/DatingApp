@@ -60,7 +60,7 @@ namespace API
             app.UseRouting();
 
             ////Adding CORS to the API
-            app.UseCors(policy => policy.AllowAnyHeader().AllowAnyMethod().WithOrigins("http://localhost:4200"));
+            app.UseCors(x => x.AllowAnyHeader().AllowAnyMethod().WithOrigins("http://localhost:4200"));
 
             app.UseAuthentication();
             app.UseAuthorization();
@@ -68,10 +68,14 @@ namespace API
             app.UseEndpoints(endpoints =>
             {
                 //endpoints.MapRazorPages(); //Routes for my pages
-                endpoints.MapControllerRoute(
-                    name: "default",
-                    pattern: "{controller=Home}/{action=Index}/{id?}");
                 endpoints.MapControllers(); //Routes for my API controllers
+                /*endpoints.MapControllerRoute(
+                    name: "default",
+                    pattern: "{controller=Home}/{action=Index}/{id?}");*/
+                //endpoints.MapHub<PresenceHub>("hubs/presence");
+                //endpoints.MapHub<MessageHub>("hubs/message");
+                //endpoints.MapFallbackToController("Index", "Fallback");
+                
             });
         }
     }
