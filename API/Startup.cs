@@ -12,6 +12,7 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Cors;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -25,6 +26,7 @@ namespace API
     public class Startup
     {
         public readonly IConfiguration _config;
+        readonly string MyAllowSpecificOrigins = "_myAllowSpecificOrigins";
         public Startup(IConfiguration config)
         {
             _config = config;
@@ -39,7 +41,13 @@ namespace API
             services.AddApplicationServices(_config);
             services.AddControllers();
             /////////Adding CORS support in the API
-            services.AddCors();
+            //services.AddCors();
+            services.AddCors(options =>
+                {
+                options.AddDefaultPolicy(builder =>{
+                                    builder.WithOrigins("https://localhost:4200");
+                                });
+                });
             //Class from a different own extension
             services.AddIdentityServices(_config);
         }
@@ -60,8 +68,9 @@ namespace API
             app.UseRouting();
 
             ////Adding CORS to the API
-            app.UseCors(x => x.AllowAnyHeader().AllowAnyMethod().WithOrigins("http://localhost:4200"));
-
+            //app.UseCors(x => x.AllowAnyHeader().AllowAnyMethod().WithOrigins("http://localhost:4200"));
+            app.UseCors(/*MyAllowSpecificOrigins*/);
+            //app.UseMvc();
             app.UseAuthentication();
             app.UseAuthorization();
 

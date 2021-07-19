@@ -7,10 +7,11 @@ using API.Entities;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-
+using System.Web.Http.Cors;
 namespace API.Controllers
 {
     //Deleted both [ApiController] [Route]
+    [EnableCors(origins: "http://localhost:4200", headers: "*", methods:"*")]
     public class UsersController : BaseApiController
     {
         public readonly DataContext _context;
