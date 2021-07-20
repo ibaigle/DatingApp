@@ -11,8 +11,8 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Cors;
+//using Microsoft.AspNetCore.Mvc;
+//using Microsoft.AspNetCore.Cors;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -41,13 +41,13 @@ namespace API
             services.AddApplicationServices(_config);
             services.AddControllers();
             /////////Adding CORS support in the API
-            //services.AddCors();
-            services.AddCors(options =>
+            services.AddCors();
+            /*services.AddCors(options =>
                 {
                 options.AddDefaultPolicy(builder =>{
-                                    builder.WithOrigins("https://localhost:4200");
+                                    builder.WithOrigins("http://localhost:4200");
                                 });
-                });
+                });*/
             //Class from a different own extension
             services.AddIdentityServices(_config);
         }
@@ -68,8 +68,8 @@ namespace API
             app.UseRouting();
 
             ////Adding CORS to the API
-            //app.UseCors(x => x.AllowAnyHeader().AllowAnyMethod().WithOrigins("http://localhost:4200"));
-            app.UseCors(/*MyAllowSpecificOrigins*/);
+            app.UseCors(x => x.AllowAnyHeader().AllowAnyMethod().WithOrigins("http://localhost:4200"));
+            //app.UseCors(/*MyAllowSpecificOrigins*/);
             //app.UseMvc();
             app.UseAuthentication();
             app.UseAuthorization();
