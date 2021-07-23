@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Text.Json;
 using System.Threading.Tasks;
 using API.Data;
 using API.Extensions;
@@ -51,6 +52,7 @@ namespace API
                 });*/
             //Class from a different own extension
             services.AddIdentityServices(_config);
+            services.AddMvc().AddJsonOptions(options => options.JsonSerializerOptions.PropertyNamingPolicy = JsonNamingPolicy.CamelCase);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
