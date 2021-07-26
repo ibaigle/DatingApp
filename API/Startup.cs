@@ -43,16 +43,19 @@ namespace API
             services.AddApplicationServices(_config);
             services.AddControllers();
             /////////Adding CORS support in the API
-            services.AddCors();
-            /*services.AddCors(options =>
+            //services.AddCors();
+            services.AddCors(options =>
                 {
-                options.AddDefaultPolicy(builder =>{
-                                    builder.WithOrigins("http://localhost:4200");
-                                });
-                });*/
+                options.AddPolicy("AllowAll",builder =>{
+                                    builder.AllowAnyOrigin()
+                                    .AllowAnyHeader()
+                                    .AllowAnyMethod();
+                              });
+                });
+            services.AddMvc().AddJsonOptions(options => options.JsonSerializerOptions.PropertyNamingPolicy = JsonNamingPolicy.CamelCase);
             //Class from a different own extension
             services.AddIdentityServices(_config);
-            services.AddMvc().AddJsonOptions(options => options.JsonSerializerOptions.PropertyNamingPolicy = JsonNamingPolicy.CamelCase);
+            
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -73,7 +76,7 @@ namespace API
             app.UseRouting();
 
             ////Adding CORS to the API
-            app.UseCors(x => x.AllowAnyHeader().AllowAnyMethod().WithOrigins("https://localhost:4200"));
+            app.UseCors("AllowAll"/*x => x.AllowAnyHeader().AllowAnyMethod().WithOrigins("https://localhost:4200")*/);
             //app.UseCors(/*MyAllowSpecificOrigins*/);
             //app.UseMvc();
             app.UseAuthentication();
