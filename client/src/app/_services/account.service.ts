@@ -1,10 +1,10 @@
 import { HttpClient } from '@angular/common/http';
-import { isNull } from '@angular/compiler/src/output/output_ast';
 import { Injectable } from '@angular/core';
 import { ReplaySubject } from 'rxjs';
 import {map} from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
 import { User } from '../_models/user';
+import { UserParams } from '../_models/userParams';
 
 @Injectable({
   providedIn: 'root'
@@ -19,10 +19,11 @@ export class AccountService {
   constructor(private http: HttpClient) { }
 
   login(model: any){
+    //let response !: User ;
     return this.http.post(this.baseUrl + 'account/login',model).pipe(
       //response should be of type 'User', but in this case wasnt able 
       map((response: any) => {
-        const user=response;
+        const user : User = response;
         if(user){
           this.setCurrentUser(user);
           /* this.currentUserSource.next(user); */
