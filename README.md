@@ -6,34 +6,7 @@ _Curso de parendizaje Dotnet + Angular_
 
 _El backend o API se desarrolla sobre Dotnet bajo el lenguaje C#. Y para el frontend y conexion con la api se utiliza Angular; bajo el lenguaje Typescript_
 
-Mira **Deployment** para conocer como desplegar el proyecto.
 
-
-### Pre-requisitos 📋
-
-_Que cosas necesitas para instalar el software y como instalarlas_
-
-```
-Da un ejemplo
-```
-
-### Instalación 🔧
-
-_Una serie de ejemplos paso a paso que te dice lo que debes ejecutar para tener un entorno de desarrollo ejecutandose_
-
-_Dí cómo será ese paso_
-
-```
-Da un ejemplo
-```
-
-_Y repite_
-
-```
-hasta finalizar
-```
-
-_Finaliza con un ejemplo de cómo obtener datos del sistema o como usarlos para una pequeña demo_
 
 ## Mensajes ⚙️
 _Inclusión de envio de mensajes dentro de la web, desde el backend de la api hasta a nivel frontend Angular_
@@ -45,13 +18,20 @@ Despues creamos las tablas en la base SQL con la clase DataContext, con sus resp
 
 Para el caso de los mensajes incluimos un par de arrays de argumentos a la clase AppUser, ya que el usuario debe tener mensajes enviados y recibidos.
 
-A continuación creamos su interfaz para su repositorio de mensajes, y con ello cremos su MessageRepository que implementar los metodos de añadir o eliminar mensajes usando el Datacontext context en su constructor. Añadir que para el envio como parametro de los mensajes creamos previamente un MessageDto, que tiene el mismo contenido pero solo se utiliza en los metodos get y set del Repositorio para guardar bien los datos en el envio cuando se les llame desde el frontend.
+A continuación creamos su interfaz para su repositorio de mensajes, y con ello cremos su MessageRepository que implementar los metodos
+de añadir o eliminar mensajes usando el Datacontext context en su constructor. Añadir que para el envio como parametro de los mensajes 
+creamos previamente un MessageDto, que tiene el mismo contenido pero solo se utiliza en los metodos get y set del Repositorio para
+guardar bien los datos en el envio cuando se les llame desde el frontend.
 
-Por último es añadir el servicio en la extensión, es decir, en ApplicationServiceExtensions  añadir un services.AddScoped para la interfaz y el repositorio de mensajes. Con esto tenemos lo basico para las entidades de mensajes.
+Por último es añadir el servicio en la extensión, es decir, en ApplicationServiceExtensions  añadir un services.AddScoped para la interfaz
+y el repositorio de mensajes. Con esto tenemos lo basico para las entidades de mensajes.
 
-Ahora debemos crear una relación entre la Entity Message y su dto MessageDto, para ello usamos el autoMapper, un map entre ambas clases. En el caso de contener fotos hay que buscarlas usando el metodo FirstOrDefault(IsMain).Url para encontrarlas.
+Ahora debemos crear una relación entre la Entity Message y su dto MessageDto, para ello usamos el autoMapper, un map entre ambas clases.
+En el caso de contener fotos hay que buscarlas usando el metodo FirstOrDefault(IsMain).Url para encontrarlas.
 
-Creamos otro dto para la creación de mensajes en especifico. Y pasamos a la parte clave: CREAMOS EL CONTROLADOR DE MENSAJES: MessagesController que engloba los metodos de acceso a la API.
+Creamos otro dto para la creación de mensajes en especifico. Y pasamos a la parte clave: CREAMOS EL CONTROLADOR DE MENSAJES: MessagesController
+que engloba los metodos de acceso a la API. A parte como suplemento a mayores del Message Entity, añadimos el helper MessageParams, usado en 
+los metodos de obtención del mensaje e hilo de mensajes con el que obtener el usuario y comprobar su contenido.
 ```
 _-ANGULAR_
 
