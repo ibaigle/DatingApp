@@ -37,7 +37,11 @@ _-ANGULAR_
 ```
 Comenzamos esta parte añadiendo una clase a los _models, en la cual metemos messages.ts como interface que indica sus parametros con sus tipos.
 Creamos un nuevo servicio dentro de _services con ng g s message ---> incluimos la funcionalidad en el message service creado. Y este servicio se apoya
-en unos métodos privados que extraemos de la clase auxiliar paginationHelper
+en unos métodos privados que extraemos de la clase auxiliar paginationHelper. En el message.service con la url base incluimos metodos que devuelven 
+los mensajes por usuario y sus thread.
+Creamos un nuevo componente "messages" en el cual en su Typescript creamos los metodos que cargan los mensajes haciendo uso del message.service. 
+Completamos con programar la interfaz en el HTML de messages.
+Creamos un nuevo componente,
 ```
 
 
