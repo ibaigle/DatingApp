@@ -41,7 +41,17 @@ en unos métodos privados que extraemos de la clase auxiliar paginationHelper. E
 los mensajes por usuario y sus thread.
 Creamos un nuevo componente "messages" en el cual en su Typescript creamos los metodos que cargan los mensajes haciendo uso del message.service. 
 Completamos con programar la interfaz en el HTML de messages.
-Creamos un nuevo componente,
+Creamos un nuevo componente dentro de messages=> el member-messages. Dentro de este usamos lo de message.service.ts para su métodos. Y completamos
+con el template de HTML y el css.
+Para cargar bien la pestañas de Messages modificamos member-detail, añadiendo las memberTabs. Además aquí incluimos la funcionalidad de member-messages
+para el metodo LoadMessages. Y asi toda la funcionalidad de member-messages se quita y pasa a member-detail.
+Ahora el valor de member en member-messages pasa a ser de entrada, cambio a mensajes en el Template HTML de member-detail => en click llamar a onTabActivated.
+Esto hace que cada pestña se pueda llamar con un activated valores= [0,1,2,3]
+Para activar la pestañas de messages clickando desde el boton: metodo en member-detail =>> este selecciona uno de los valores activated (member-detail.html) y
+esto tambien si se clica desde la pestaña de tus mensajes. Se añade [queryParams] y se accede desde el html y desde member-detail.ts
+
+
+
 ```
 
 
