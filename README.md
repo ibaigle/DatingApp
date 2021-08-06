@@ -34,7 +34,11 @@ que engloba los metodos de acceso a la API. A parte como suplemento a mayores de
 los metodos de obtención del mensaje e hilo de mensajes con el que obtener el usuario y comprobar su contenido.
 ```
 _-ANGULAR_
-
+```
+Comenzamos esta parte añadiendo una clase a los _models, en la cual metemos messages.ts como interface que indica sus parametros con sus tipos.
+Creamos un nuevo servicio dentro de _services con ng g s message ---> incluimos la funcionalidad en el message service creado. Y este servicio se apoya
+en unos métodos privados que extraemos de la clase auxiliar paginationHelper
+```
 
 
 ## Despliegue 📦
