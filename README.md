@@ -49,6 +49,8 @@ Ahora el valor de member en member-messages pasa a ser de entrada, cambio a mens
 Esto hace que cada pestña se pueda llamar con un activated valores= [0,1,2,3]
 Para activar la pestañas de messages clickando desde el boton: metodo en member-detail =>> este selecciona uno de los valores activated (member-detail.html) y
 esto tambien si se clica desde la pestaña de tus mensajes. Se añade [queryParams] y se accede desde el html y desde member-detail.ts
+El componente member-detail lo cambiamos a su version Static por lo que ahora no hace falta poner una comprobación IF para mostrarlo en el HTML.
+Creamos carpeta _resolvers, con el archivo member-detail.resolver.ts, devolviendo el array de Likes con los miembros que se lo dieron.
 
 
 
