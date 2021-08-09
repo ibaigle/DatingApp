@@ -51,9 +51,13 @@ Para activar la pestañas de messages clickando desde el boton: metodo en member
 esto tambien si se clica desde la pestaña de tus mensajes. Se añade [queryParams] y se accede desde el html y desde member-detail.ts
 El componente member-detail lo cambiamos a su version Static por lo que ahora no hace falta poner una comprobación IF para mostrarlo en el HTML.
 Creamos carpeta _resolvers, con el archivo member-detail.resolver.ts, devolviendo el array de Likes con los miembros que se lo dieron.
-
-
-
+--Añadir funcionalidad de enviar mensaje desde el thread de message detail-- 
+Primera añadir método enviarMensaje al servicio meesage.service.ts; el cual se llama desde el member-message.component.ts con su funcionalidad
+ y el Front va en el member-message.HTML y cambiar el detalle del mensaje final en member-detail.html
+ Ahora el problema viene con las fotos, que al subirlas tiene retardo en cargarla y no la puede devolver hasta que no la consiga.
+ Al controlador de mensajes, messagesControlers.cs añadimos metodo HttpDelete de message, ademos lo añadimos como una condición extra al
+ _messageRepository. Con esto ya es añadir una comprobacion mas de mensaje eliminado en MessageRepository, y despues se puede añadir el metodo eliminar al
+ service y al componente.
 ```
 
 
