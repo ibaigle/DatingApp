@@ -8,7 +8,7 @@ _El backend o API se desarrolla sobre Dotnet bajo el lenguaje C#. Y para el fron
 
 
 
-## Mensajes ⚙️
+## Mensajes 📦 
 _Inclusión de envio de mensajes dentro de la web, desde el backend de la api hasta a nivel frontend Angular_
 _-API:_
 ```
@@ -61,10 +61,16 @@ Primera añadir método enviarMensaje al servicio meesage.service.ts; el cual se
 ```
 
 
-## Despliegue 📦
+## APS.NET Identity ⚙️
 
-_Agrega notas adicionales sobre como hacer deploy_
-
+_API_
+```
+Para esto vamos a usar Role managament, mediante el usao de clases Identity: UserManager<T>, SingInManager<T> y RoleManager<T>
+Comenzamos con la Entity AppUser heredando de IdentityUser, crear nueva clase AppRole de IdentityRole, y de esta crear AppUserRole,
+para al final crear una colleccion de esta ultima en el AppUser === actua como JOINT TABLE de roles para el usuario 
+Se eliminan todas las instancias de en archivos de la API en donde se inicializa la password SALT y se crea una clave de pass HMAC.
+----Modificamos el DBContext: primero instalamos el IdentityDBContext desde el NuGet
+```
 ## Construido con 🛠️
 
 _Menciona las herramientas que utilizaste para crear tu proyecto_
