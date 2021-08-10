@@ -74,6 +74,7 @@ Se eliminan todas las instancias de en archivos de la API en donde se inicializa
 y con esto añadir el servicio en la extension IdentityServiceExtensions con cada Role.
 >>>Creamos nueva Migration en la Database: dotnet ef migrations add IdentityAdded <==== Lo ultimo su nombre, y actualizamos el metodo seed con UserManager
 >>>Dropeamos las tablas con: dotnet ef database drop . Y al volver a correrlo con dotnet watch run lo creara con la nueva UserManager.
+En AccountController se incluye UserManager y singInManager
 
 ```
 ## Construido con 🛠️
