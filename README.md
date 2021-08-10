@@ -69,7 +69,9 @@ Para esto vamos a usar Role managament, mediante el usao de clases Identity: Use
 Comenzamos con la Entity AppUser heredando de IdentityUser, crear nueva clase AppRole de IdentityRole, y de esta crear AppUserRole,
 para al final crear una colleccion de esta ultima en el AppUser === actua como JOINT TABLE de roles para el usuario 
 Se eliminan todas las instancias de en archivos de la API en donde se inicializa la password SALT y se crea una clave de pass HMAC.
-----Modificamos el DBContext: primero instalamos el IdentityDBContext desde el NuGet
+----Modificamos el DBContext: primero instalamos el IdentityDBContext desde el NuGet, para aplicarlo en el DataContext:
+>>DataContext : IdentityDbContext<AppUser, AppRole, int,IdentityUserClaim<int> ,AppUserRole,IdentityUserLogin<int>,IdentityRoleClaim<int>, IdentityUserToken<int>>
+y con esto añadir el servicio en la extension IdentityServiceExtensions con cada Role.
 ```
 ## Construido con 🛠️
 
