@@ -80,10 +80,16 @@ para cada user según el base "member", y luego se le de "admin" o "moderator", 
 Añadimos los roles al JWT Token ==> tokenService; añadiendole el userManager, del que obtenemos los roles y se añaden a la lista Claims.
 Esto hace que tengamos que ponerlo en el accountController como async(await). Y con estos roles ya podemos crear sus controladores:
 >AdminControler: para cada metodo solo se permite una Policy estilo: RequireAdminRole, y hay que crearlas en IdentityServiceExtensions
-
-
+```
+_ANGULAR_
+```
+Vamos a client/src/app y creamos una carpeta para el componente de  Admin, y ejecutamos: ng g c admin-panel --skip-tests
+Para crear la ruta especifica para este componente ---> app-routing.module.ts y pego esta linea: {path: 'admin', component: AdminPanelComponent}, en Routes
+Ponemos su nueva pestaña en el html doblando un <li>. Añadimios método getDecoded a Account.service.ts, hacemos que lo incie cuando se llama
+al método de obtener el user e inicialice. En _guards ejecuto: ng g guard admin --skip-tests => obtengo admin.guard.ts
 
 ```
+
 ## Construido con 🛠️
 
 _Menciona las herramientas que utilizaste para crear tu proyecto_
