@@ -78,7 +78,8 @@ En AccountController se incluye UserManager y singInManager para reemplazar al D
 Para incluir roles a los usuarios, usamos la claso AppRole mediante RoleManager, esto se hace en Seed.cs para añadir un nuevo "role" 
 para cada user según el base "member", y luego se le de "admin" o "moderator", y esto sea ejecutado desde la llamada al seed de Program.cs
 Añadimos los roles al JWT Token ==> tokenService; añadiendole el userManager, del que obtenemos los roles y se añaden a la lista Claims.
-Esto hace que tengamos que ponerlo en el accountController como async(await).
+Esto hace que tengamos que ponerlo en el accountController como async(await). Y con estos roles ya podemos crear sus controladores:
+>AdminControler: para cada metodo solo se permite una Policy estilo: RequireAdminRole, y hay que crearlas en IdentityServiceExtensions
 
 
 
