@@ -87,7 +87,11 @@ Vamos a client/src/app y creamos una carpeta para el componente de  Admin, y eje
 Para crear la ruta especifica para este componente ---> app-routing.module.ts y pego esta linea: {path: 'admin', component: AdminPanelComponent}, en Routes
 Ponemos su nueva pestaña en el html doblando un <li>. Añadimios método getDecoded a Account.service.ts, hacemos que lo incie cuando se llama
 al método de obtener el user e inicialice. En _guards ejecuto: ng g guard admin --skip-tests => obtengo admin.guard.ts
-
+Directorio nuevo _directives => ng g -h  y despues => ng g d has-role --skip-tests: crea directiva has-role y la añade a app.module.ts
+Creamos 2 componentes, el userManagement y el photoManagement, y con el directive hasRole, si el role es Admin muestra el UserManagement o Moderator el photoManagement en el html
+Ahora en _services creamos el nuevo para Admin.service.ts, con el metodo que devuelve los UsersWithRoles, el cual se llama desde el user-management.component.ts y su HTML.
+Añadimos ModalModule en el "shared.module.ts": su funcionalidad de implementa con la clase BsModalRef en roles-modal.component.ts y roles-modal
+Su implementación se basa en añadir un selector con el que editar los roles desde la ventana admin. Incluyente sus componente graficos obtenidos de ngx-bootstrap web.
 ```
 
 ## Construido con 🛠️
