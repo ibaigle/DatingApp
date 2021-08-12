@@ -76,7 +76,7 @@ namespace API
             app.UseRouting();
 
             ////Adding CORS to the API
-            app.UseCors("AllowAll"/*x => x.AllowAnyHeader().AllowAnyMethod().WithOrigins("https://localhost:4200")*/);
+            app.UseCors(/*"AllowAll"*/x => x.AllowAnyOrigin().AllowAnyHeader().AllowAnyMethod()/* WithOrigins("https://localhost:4200") */);
             //app.UseCors(/*MyAllowSpecificOrigins*/);
             //app.UseMvc();
             app.UseAuthentication();

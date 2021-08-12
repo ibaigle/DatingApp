@@ -1,16 +1,17 @@
 using System;
 using System.Collections.Generic;
 using API.Extensions;
+using Microsoft.AspNetCore.Identity;
 
 namespace API.Entities
 {
-    public class AppUser
+    public class AppUser : IdentityUser<int>
     {
+        /* ALL OF THIS PARAMETERS ARE CREATED BY IDENTITYUSER
         public int Id {get;set;}
         public string Username{get; set;}
-        
         public byte[] PasswordHash {get;set;}
-        public byte[] PasswordSalt {get;set;}
+        public byte[] PasswordSalt {get;set;} */
         public DateTime DateofBirth {get;set;}
         public string KnownAs {get;set;}
         public DateTime Created {get;set;}=DateTime.Now;
@@ -26,5 +27,6 @@ namespace API.Entities
         public ICollection<UserLike> LikedUsers{get;set;}
         public ICollection<Message> MessagesSent { get; set; }
         public ICollection<Message> MessagesReceived { get; set; }
+        public ICollection<AppUserRole>  UserRoles { get; set; }
     }
 }

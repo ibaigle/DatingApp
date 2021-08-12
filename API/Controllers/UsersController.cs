@@ -34,11 +34,12 @@ namespace API.Controllers
         }
         // api/users/3 (3 here is going to be the "id") => this was remove time later, and adding
         // the atribute FromQuery to specify 
+        [Authorize(Roles = "Admin")]//only admins can gets list of users
         [HttpGet]
         public async Task<ActionResult<IEnumerable<MemberDto>>> GetUsers([FromQuery]UserParams userParams)
         {
             var user =await _userRepository.GetUserByUsernameAsync(User.GetUsername());
-            userParams.CurrentUserName= user.Username;
+            userParams.CurrentUserName= user.UserName;
 
             if(string.IsNullOrEmpty(userParams.Gender))
                 userParams.Gender=user.Gender == "male" ? "female" : "male";
@@ -49,7 +50,7 @@ namespace API.Controllers
 
             return Ok(users);
         }
-
+        [Authorize(Roles ="Member")]
         [HttpGet("{username}", Name = "GetUser")]
         public async Task<ActionResult<MemberDto>> GetUser(string username)
         {
@@ -93,7 +94,7 @@ namespace API.Controllers
             user.Photos.Add(photo);
             if(await _userRepository.SaveAllAsync()){
                 /* return _mapper.Map<PhotoDto>(photo); */
-                return CreatedAtRoute("GetUser", new{Username = user.Username} ,_mapper.Map<PhotoDto>(photo));
+                return CreatedAtRoute("GetUser", new{Username = user.UserName} ,_mapper.Map<PhotoDto>(photo));
             }
                 
             return BadRequest("Problem adding photo");
