@@ -8,7 +8,7 @@ _El backend o API se desarrolla sobre Dotnet bajo el lenguaje C#. Y para el fron
 
 
 
-## Mensajes ⚙️
+## Mensajes 📦 
 _Inclusión de envio de mensajes dentro de la web, desde el backend de la api hasta a nivel frontend Angular_
 _-API:_
 ```
@@ -61,9 +61,34 @@ Primera añadir método enviarMensaje al servicio meesage.service.ts; el cual se
 ```
 
 
-## Despliegue 📦
+## APS.NET Identity ⚙️
 
-_Agrega notas adicionales sobre como hacer deploy_
+_API_
+```
+Para esto vamos a usar Role managament, mediante el usao de clases Identity: UserManager<T>, SingInManager<T> y RoleManager<T>
+Comenzamos con la Entity AppUser heredando de IdentityUser, crear nueva clase AppRole de IdentityRole, y de esta crear AppUserRole,
+para al final crear una colleccion de esta ultima en el AppUser === actua como JOINT TABLE de roles para el usuario 
+Se eliminan todas las instancias de en archivos de la API en donde se inicializa la password SALT y se crea una clave de pass HMAC.
+----Modificamos el DBContext: primero instalamos el IdentityDBContext desde el NuGet, para aplicarlo en el DataContext:
+>>DataContext : IdentityDbContext<AppUser, AppRole, int,IdentityUserClaim<int> ,AppUserRole,IdentityUserLogin<int>,IdentityRoleClaim<int>, IdentityUserToken<int>>
+y con esto añadir el servicio en la extension IdentityServiceExtensions con cada Role.
+>>>Creamos nueva Migration en la Database: dotnet ef migrations add IdentityAdded <==== Lo ultimo su nombre, y actualizamos el metodo seed con UserManager
+>>>Dropeamos las tablas con: dotnet ef database drop . Y al volver a correrlo con dotnet watch run lo creara con la nueva UserManager.
+En AccountController se incluye UserManager y singInManager para reemplazar al DataContext. 
+Para incluir roles a los usuarios, usamos la claso AppRole mediante RoleManager, esto se hace en Seed.cs para añadir un nuevo "role" 
+para cada user según el base "member", y luego se le de "admin" o "moderator", y esto sea ejecutado desde la llamada al seed de Program.cs
+Añadimos los roles al JWT Token ==> tokenService; añadiendole el userManager, del que obtenemos los roles y se añaden a la lista Claims.
+Esto hace que tengamos que ponerlo en el accountController como async(await). Y con estos roles ya podemos crear sus controladores:
+>AdminControler: para cada metodo solo se permite una Policy estilo: RequireAdminRole, y hay que crearlas en IdentityServiceExtensions
+```
+_ANGULAR_
+```
+Vamos a client/src/app y creamos una carpeta para el componente de  Admin, y ejecutamos: ng g c admin-panel --skip-tests
+Para crear la ruta especifica para este componente ---> app-routing.module.ts y pego esta linea: {path: 'admin', component: AdminPanelComponent}, en Routes
+Ponemos su nueva pestaña en el html doblando un <li>. Añadimios método getDecoded a Account.service.ts, hacemos que lo incie cuando se llama
+al método de obtener el user e inicialice. En _guards ejecuto: ng g guard admin --skip-tests => obtengo admin.guard.ts
+
+```
 
 ## Construido con 🛠️
 
