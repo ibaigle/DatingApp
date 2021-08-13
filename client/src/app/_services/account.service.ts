@@ -5,6 +5,7 @@ import {map} from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
 import { User } from '../_models/user';
 import { UserParams } from '../_models/userParams';
+import { PresenceService } from './presence.service';
 
 @Injectable({
   providedIn: 'root'
@@ -16,7 +17,7 @@ export class AccountService {
   //to see this as an observable we use the $ sign
   currentUser$ = this.currentUserSource.asObservable();
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient, private presence: PresenceService) { }
 
   login(model: any){
     //let response !: User ;
@@ -27,6 +28,7 @@ export class AccountService {
         if(user){
           this.setCurrentUser(user);
           /* this.currentUserSource.next(user); */
+          this.presence.createHubConnection(user);
         }
       })
     )
@@ -38,6 +40,7 @@ export class AccountService {
         if (user){
           this.setCurrentUser(user);
           /* this.currentUserSource.next(user); */
+          this.presence.createHubConnection(user);
         }
         //return user; ##just was an example to watch at the console
       })
@@ -54,6 +57,7 @@ export class AccountService {
   logout(){
     localStorage.removeItem('user');
     this.currentUserSource.next();
+    this.presence.stopHubConnection();
   }
   getDecodedToken(token: any){
     return JSON.parse(atob(token.split('.')[1]));
