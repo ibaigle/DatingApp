@@ -94,6 +94,19 @@ Añadimos ModalModule en el "shared.module.ts": su funcionalidad de implementa c
 Su implementación se basa en añadir un selector con el que editar los roles desde la ventana admin. Incluyente sus componente graficos obtenidos de ngx-bootstrap web.
 ```
 
+## Unit of Work ⚙️
+
+La Unidad de Trabajo inyecta instancias de Data Context que se llaman desde todos los repositorios (llamados por los controladores)  de forma responsiva; quiere decir cuando se piden.
+_API_
+```
+Primero la interfaz de UnitOfWork y despues su clase de dominio dentro de la carpeta Data, llamada UnitOfWork.cs
+En esta clase se inicializan User, Message y Likes Repository. Y con esto se pueden quitar los services de Likes y Message de ApplicationServiceExtension y 
+sustituirlos por <IUnitOfWork, UnitOf Work>. Despues quitamos todos los métodos SaveAllAsync de UserRepository y MessageRepository y de sus Interfaces.
+Tras esto hay que modificar todos los controladores por remplazar usuario y likes repository por sus vaariables en el UnitOfWork.
+```
+
+
+
 ## Construido con 🛠️
 
 _Menciona las herramientas que utilizaste para crear tu proyecto_
