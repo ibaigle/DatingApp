@@ -44,17 +44,17 @@ namespace API
             services.AddApplicationServices(_config);
             services.AddControllers();
             /////////Adding CORS support in the API
-            //services.AddCors();
-            services.AddCors(options =>
+            services.AddCors();
+            /* services.AddCors(options =>
                 {
                 options.AddPolicy("AllowAll",builder =>{
                                     builder.AllowAnyOrigin()
                                     .AllowAnyHeader()
                                     .AllowAnyMethod()
-                                    /* .AllowCredentials() */; //to let path to signalR
+                                     .AllowCredentials() ; //to let path to signalR
                               });
-                });
-            services.AddMvc().AddJsonOptions(options => options.JsonSerializerOptions.PropertyNamingPolicy = JsonNamingPolicy.CamelCase);
+                }); */
+            //services.AddMvc().AddJsonOptions(options => options.JsonSerializerOptions.PropertyNamingPolicy = JsonNamingPolicy.CamelCase);
             //Class from a different own extension
             services.AddIdentityServices(_config);
             services.AddSignalR();
@@ -63,39 +63,29 @@ namespace API
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
-            /*
-            if (env.IsDevelopment())
-            {
-                app.UseDeveloperExceptionPage();
-                app.UseSwagger();
-                app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "API v1"));
-            }
-            */
             app.UseMiddleware<ExceptionMiddleware>();
-
             app.UseHttpsRedirection();
-
             app.UseRouting();
-
             ////Adding CORS to the API
-            app.UseCors(/*"AllowAll"*/x => x.AllowAnyOrigin().AllowAnyHeader().AllowAnyMethod()/* WithOrigins("https://localhost:4200") */);
-            //app.UseCors(/*MyAllowSpecificOrigins*/);
+            app.UseCors(x => x.AllowAnyHeader()
+                            .AllowAnyMethod()
+                            .AllowCredentials()
+                            .WithOrigins("https://localhost:4200"));
             //app.UseMvc();
             app.UseAuthentication();
             app.UseAuthorization();
+
+            app.UseDefaultFiles();
+            app.UseStaticFiles();
 
             app.UseEndpoints(endpoints =>
             {
                 //endpoints.MapRazorPages(); //Routes for my pages
                 endpoints.MapControllers(); //Routes for my API controllers
-                /*endpoints.MapControllerRoute(
-                    name: "default",
-                    pattern: "{controller=Home}/{action=Index}/{id?}");*/
-                //endpoints.MapHub<PresenceHub>("hubs/presence");
-                //endpoints.MapHub<MessageHub>("hubs/message");
                 //endpoints.MapFallbackToController("Index", "Fallback");
                 endpoints.MapHub<PresenceHub>("hubs/presence");
                 endpoints.MapHub<MessageHub>("hubs/message");
+                endpoints.MapFallbackToController("Index", "Fallback");
             });
         }
     }

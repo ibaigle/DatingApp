@@ -32,10 +32,7 @@ namespace API.Data
             }
             foreach (var user in users)
             {
-                /* using var hmac = new HMACSHA512(); */
-                user.UserName = user.UserName.ToLower();
-                /* user.PasswordHash = hmac.ComputeHash(Encoding.UTF8.GetBytes("Pa$$w0rd"));
-                user.PasswordSalt = hmac.Key; */
+                user.UserName!.ToLower();
                 await userManager.CreateAsync(user, "Pa$$w0rd");
                 await userManager.AddToRoleAsync(user, "Member");
             }

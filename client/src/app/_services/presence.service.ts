@@ -4,6 +4,7 @@ import { HubConnection, HubConnectionBuilder } from '@microsoft/signalr';
 import { ToastrService } from 'ngx-toastr';
 import { BehaviorSubject } from 'rxjs';
 import { take } from 'rxjs/operators';
+import { environment } from 'src/environments/environment';
 import { User } from '../_models/user';
 
 @Injectable({
@@ -19,7 +20,7 @@ export class PresenceService {
 
   createHubConnection(user: User){
     this.hubConnection= new HubConnectionBuilder()
-          .withUrl(/* this.hubUrl */'https://localhost:5001/hubs/' + 'presence', {
+          .withUrl(environment.hubUrl + 'presence', {
             accessTokenFactory: () => user.token
           })
           .withAutomaticReconnect()
